@@ -858,9 +858,9 @@
             
             let prompt;
             if (type === 'overview') {
-                prompt = `Analyze this barbershop business and provide a comprehensive overview including strengths, market position, and key insights. Business data: ${JSON.stringify(businessData)}`;
+                prompt = `Analyze this business and provide a comprehensive overview including strengths, market position, and key insights. Business data: ${JSON.stringify(businessData)}`;
             } else {
-                prompt = `Create a compelling sales pitch for potentially selling a website to this barbershop, highlighting unique selling points and value propositions. It needs to sound like me talking to them, person to person not business to person, short and simple, straight to the point, yet convinving, and its me trying to sell the website to them not my business. offer a free demo if they're interested with no commitment attached Business data: ${JSON.stringify(businessData)}`;
+                prompt = `Create a compelling sales pitch for potentially selling a website to this business, highlighting unique selling points and value propositions. It needs to sound like me talking to them, person to person not business to person, short and simple, straight to the point, yet convinving, and its me trying to sell the website to them not my business. offer a free demo if they're interested with no commitment attached Business data: ${JSON.stringify(businessData)}`;
             }
             
             // Example API call structure - modify based on your API
@@ -1002,5 +1002,87 @@
         document.getElementById('apiUrl').addEventListener('change', saveApiConfig);
     </script>
     <a href="scrape.py" download>Download Scraper</a>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Download Field</title>
+</head>
+<body style="margin: 0; padding: 40px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+    
+    <div style="background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); backdrop-filter: blur(10px); max-width: 400px; width: 100%; text-align: center;">
+        
+        <h2 style="color: #333; margin-top: 0; margin-bottom: 30px; font-weight: 600; font-size: 28px;">Secure Access</h2>
+        
+        <div style="position: relative; margin-bottom: 30px;">
+            <input 
+                type="password" 
+                id="passwordField" 
+                placeholder="Enter password..."
+                style="width: 100%; padding: 15px 20px; border: 2px solid #e1e5e9; border-radius: 12px; font-size: 16px; outline: none; transition: all 0.3s ease; background: #f8f9fa; box-sizing: border-box;"
+                onkeyup="checkPassword(event)"
+                onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)'"
+                onblur="this.style.borderColor='#e1e5e9'; this.style.boxShadow='none'"
+            >
+        </div>
+        
+        <div id="status" style="margin-top: 20px; font-size: 14px; color: #666; min-height: 20px;"></div>
+        
+        <div id="downloadLinks" style="margin-top: 20px; display: none;">
+            <p style="color: #28a745; font-weight: 600; margin-bottom: 15px;">✓ Access Granted - Files Ready for Download:</p>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <a href="files/barbershops_north_america_complete.csv" id="file1" style="padding: 10px 15px; background: #007bff; color: white; text-decoration: none; border-radius: 8px; font-size: 14px; transition: background 0.3s ease;" onmouseover="this.style.background='#0056b3'" onmouseout="this.style.background='#007bff'">📄 Document.pdf</a>
+                <a href="files/nail_salons_north_america_complete.csv" id="file2" style="padding: 10px 15px; background: #28a745; color: white; text-decoration: none; border-radius: 8px; font-size: 14px; transition: background 0.3s ease;" onmouseover="this.style.background='#1e7e34'" onmouseout="this.style.background='#28a745'">📊 Spreadsheet.xlsx</a>
+                <a href="files/piercing_studios_north_america_complete.csv" id="file3" style="padding: 10px 15px; background: #ffc107; color: #212529; text-decoration: none; border-radius: 8px; font-size: 14px; transition: background 0.3s ease;" onmouseover="this.style.background='#e0a800'" onmouseout="this.style.background='#ffc107'">🖼️ Image.jpg</a>
+                <a href="files/tattoo_parlors_north_america_complete.csv" id="file4" style="padding: 10px 15px; background: #dc3545; color: white; text-decoration: none; border-radius: 8px; font-size: 14px; transition: background 0.3s ease;" onmouseover="this.style.background='#c82333'" onmouseout="this.style.background='#dc3545'">📝 TextFile.txt</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword(event) {
+            const password = event.target.value;
+            const status = document.getElementById('status');
+            const downloadLinks = document.getElementById('downloadLinks');
+            
+            if (password === 'lynfeir1273') {
+                status.innerHTML = '<span style="color: #28a745; font-weight: 600;">✓ Password Correct!</span>';
+                downloadLinks.style.display = 'block';
+                setupDownloads();
+            } else if (password.length > 0) {
+                status.innerHTML = '<span style="color: #dc3545;">✗ Incorrect password</span>';
+                downloadLinks.style.display = 'none';
+            } else {
+                status.innerHTML = '';
+                downloadLinks.style.display = 'none';
+            }
+        }
+        
+        function setupDownloads() {
+            // Create sample file contents
+            const files = [
+                { id: 'file1', name: 'Document.pdf', content: 'Sample PDF content - This would be a real PDF file', type: 'application/pdf' },
+                { id: 'file2', name: 'Spreadsheet.xlsx', content: 'Sample Excel content - This would be real Excel data', type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+                { id: 'file3', name: 'Image.jpg', content: 'Sample image data - This would be real image binary', type: 'image/jpeg' },
+                { id: 'file4', name: 'TextFile.txt', content: 'This is a sample text file.\nLine 2 of the text file.\nThank you for using the secure download system!', type: 'text/plain' }
+            ];
+            
+            files.forEach(file => {
+                const link = document.getElementById(file.id);
+                const blob = new Blob([file.content], { type: file.type });
+                const url = URL.createObjectURL(blob);
+                link.href = url;
+                link.download = file.name;
+                
+                link.onclick = function() {
+                    // Small delay to ensure the download starts
+                    setTimeout(() => {
+                        URL.revokeObjectURL(url);
+                    }, 1000);
+                };
+            });
+        }
+    </script>
 </body>
 </html>
