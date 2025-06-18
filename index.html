@@ -87,6 +87,26 @@
             box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
         }
 
+        .api-config {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            border: 2px dashed #3498db;
+        }
+
+        .api-config h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .api-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
         .search-filters {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -163,6 +183,7 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             border-left: 4px solid #3498db;
+            position: relative;
         }
 
         .barbershop-card:hover {
@@ -180,6 +201,7 @@
         .barbershop-details {
             display: grid;
             gap: 8px;
+            margin-bottom: 15px;
         }
 
         .detail-row {
@@ -218,6 +240,113 @@
         .country-usa { background: #e74c3c; }
         .country-canada { background: #e67e22; }
         .country-mexico { background: #27ae60; }
+
+        .ai-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .ai-btn {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-overview-btn {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            color: white;
+        }
+
+        .ai-overview-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);
+        }
+
+        .sales-pitch-btn {
+            background: linear-gradient(45deg, #e67e22, #d35400);
+            color: white;
+        }
+
+        .sales-pitch-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+        }
+
+        .ai-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .ai-btn.loading {
+            background: #95a5a6;
+            cursor: wait;
+        }
+
+        .ai-btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .ai-content {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            display: none;
+        }
+
+        .ai-content.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ai-content h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .ai-content p {
+            color: #34495e;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .ai-content.overview {
+            border-left-color: #9b59b6;
+        }
+
+        .ai-content.sales-pitch {
+            border-left-color: #e67e22;
+        }
 
         .no-data {
             text-align: center;
@@ -271,126 +400,13 @@
             font-weight: 600;
         }
 
-        /* AI Features Styles */
-        .ai-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .ai-button {
-            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+        .error-message {
+            background: #e74c3c;
             color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(155, 89, 182, 0.3);
-        }
-
-        .ai-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
-        }
-
-        .ai-button:disabled {
-            background: #bdc3c7;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .ai-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-        }
-
-        .ai-modal-content {
-            background: white;
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 700px;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .ai-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #eee;
-        }
-
-        .ai-modal-header h2 {
-            color: #2c3e50;
-            font-size: 1.5rem;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #7f8c8d;
-            transition: color 0.3s ease;
-        }
-
-        .close-modal:hover {
-            color: #e74c3c;
-        }
-
-        .ai-content {
-            line-height: 1.6;
-            color: #2c3e50;
-        }
-
-        .ai-content h3 {
-            color: #3498db;
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-
-        .ai-content ul {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        .ai-loading {
-            text-align: center;
-            padding: 40px;
-            color: #9b59b6;
-        }
-
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #9b59b6;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 768px) {
@@ -407,10 +423,12 @@
                 align-items: stretch;
             }
 
-            .ai-modal-content {
-                width: 95%;
-                margin: 10% auto;
-                padding: 20px;
+            .api-fields {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-buttons {
+                flex-direction: column;
             }
         }
     </style>
@@ -419,7 +437,7 @@
     <div class="container">
         <div class="header">
             <h1>🪒 North American Barbershop Data Viewer</h1>
-            <p>Explore barbershop data from across the USA, Canada, and Mexico</p>
+            <p>Explore barbershop data from across the USA, Canada, and Mexico with AI insights</p>
         </div>
 
         <div class="controls">
@@ -433,6 +451,20 @@
                     <label for="jsonFile" class="file-input-label">📄 Load JSON File</label>
                 </div>
                 <span id="fileStatus" style="color: #27ae60; font-weight: 600;"></span>
+            </div>
+
+            <div class="api-config">
+                <h3>🤖 AI API Configuration</h3>
+                <div class="api-fields">
+                    <div class="filter-group">
+                        <label for="apiUrl">API Endpoint URL:</label>
+                        <input type="url" id="apiUrl" placeholder="https://your-ai-api.com/analyze" value="https://api.openai.com/v1/chat/completions">
+                    </div>
+                    <div class="filter-group">
+                        <label for="apiKey">API Key:</label>
+                        <input type="password" id="apiKey" placeholder="Enter your API key">
+                    </div>
+                </div>
             </div>
 
             <div class="search-filters">
@@ -456,14 +488,6 @@
                 <div class="filter-group">
                     <label for="searchCity">Search by City:</label>
                     <input type="text" id="searchCity" placeholder="Enter city name...">
-                </div>
-                <div class="filter-group">
-                    <label for="filterWebsite">Website Status:</label>
-                    <select id="filterWebsite">
-                        <option value="">All Businesses</option>
-                        <option value="has">Has Website</option>
-                        <option value="no">No Website</option>
-                    </select>
                 </div>
             </div>
 
@@ -508,22 +532,6 @@
         </div>
     </div>
 
-    <!-- AI Modal -->
-    <div id="aiModal" class="ai-modal">
-        <div class="ai-modal-content">
-            <div class="ai-modal-header">
-                <h2 id="aiModalTitle">AI Analysis</h2>
-                <button class="close-modal" onclick="closeAIModal()">&times;</button>
-            </div>
-            <div id="aiModalContent" class="ai-content">
-                <div class="ai-loading">
-                    <div class="spinner"></div>
-                    <p>Generating AI content...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         let allBarbershops = [];
         let filteredBarbershops = [];
@@ -539,7 +547,6 @@
         document.getElementById('filterCountry').addEventListener('change', applyFilters);
         document.getElementById('filterRating').addEventListener('input', applyFilters);
         document.getElementById('searchCity').addEventListener('input', applyFilters);
-        document.getElementById('filterWebsite').addEventListener('change', applyFilters);
 
         // Pagination handlers
         document.getElementById('prevPage').addEventListener('click', () => {
@@ -649,22 +656,14 @@
             const countryFilter = document.getElementById('filterCountry').value;
             const ratingFilter = parseFloat(document.getElementById('filterRating').value) || 0;
             const cityFilter = document.getElementById('searchCity').value.toLowerCase();
-            const websiteFilter = document.getElementById('filterWebsite').value;
 
             filteredBarbershops = allBarbershops.filter(shop => {
                 const matchesName = !nameFilter || shop.name.toLowerCase().includes(nameFilter);
                 const matchesCountry = !countryFilter || shop.country === countryFilter;
                 const matchesRating = !ratingFilter || (parseFloat(shop.rating) || 0) >= ratingFilter;
                 const matchesCity = !cityFilter || (shop.address && shop.address.toLowerCase().includes(cityFilter));
-                
-                let matchesWebsite = true;
-                if (websiteFilter === 'has') {
-                    matchesWebsite = shop.website && shop.website.trim() !== '';
-                } else if (websiteFilter === 'no') {
-                    matchesWebsite = !shop.website || shop.website.trim() === '';
-                }
 
-                return matchesName && matchesCountry && matchesRating && matchesCity && matchesWebsite;
+                return matchesName && matchesCountry && matchesRating && matchesCity;
             });
 
             currentPage = 1;
@@ -690,7 +689,7 @@
             const endIndex = startIndex + itemsPerPage;
             const pageData = filteredBarbershops.slice(startIndex, endIndex);
 
-            grid.innerHTML = pageData.map(shop => createBarbershopCard(shop)).join('');
+            grid.innerHTML = pageData.map((shop, index) => createBarbershopCard(shop, startIndex + index)).join('');
 
             // Update pagination
             const totalPages = Math.ceil(filteredBarbershops.length / itemsPerPage);
@@ -705,15 +704,14 @@
             }
         }
 
-        function createBarbershopCard(shop) {
+        function createBarbershopCard(shop, index) {
             const rating = parseFloat(shop.rating) || 0;
             const totalRatings = parseInt(shop.total_ratings) || 0;
             const stars = '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating));
             const countryClass = `country-${(shop.country || 'unknown').toLowerCase()}`;
-            const shopId = shop.name.replace(/[^a-zA-Z0-9]/g, '');
 
             return `
-                <div class="barbershop-card">
+                <div class="barbershop-card" data-index="${index}">
                     <div class="barbershop-name">${escapeHtml(shop.name || 'Unnamed Barbershop')}</div>
                     <div class="barbershop-details">
                         <div class="detail-row">
@@ -752,16 +750,162 @@
                             </div>
                         ` : ''}
                     </div>
+                    
                     <div class="ai-buttons">
-                        <button class="ai-button" onclick="generateAIOverview('${shopId}')">
+                        <button class="ai-btn ai-overview-btn" onclick="getAIOverview(${index})">
                             🤖 AI Overview
                         </button>
-                        <button class="ai-button" onclick="generateSalesPitch('${shopId}')">
+                        <button class="ai-btn sales-pitch-btn" onclick="getSalesPitch(${index})">
                             💼 Sales Pitch
                         </button>
                     </div>
+                    
+                    <div id="ai-overview-${index}" class="ai-content overview"></div>
+                    <div id="ai-sales-${index}" class="ai-content sales-pitch"></div>
                 </div>
             `;
+        }
+
+        async function getAIOverview(index) {
+            const shop = filteredBarbershops[index];
+            const button = document.querySelector(`[data-index="${index}"] .ai-overview-btn`);
+            const contentDiv = document.getElementById(`ai-overview-${index}`);
+            
+            if (contentDiv.classList.contains('show')) {
+                contentDiv.classList.remove('show');
+                button.textContent = '🤖 AI Overview';
+                return;
+            }
+            
+            button.classList.add('loading');
+            button.textContent = 'Analyzing...';
+            contentDiv.classList.remove('show');
+            
+            try {
+                const analysis = await callAIAPI(shop, 'overview');
+                contentDiv.innerHTML = `
+                    <h4>🤖 AI Business Overview</h4>
+                    <p>${analysis}</p>
+                `;
+                contentDiv.classList.add('show');
+                button.textContent = '🤖 Hide Overview';
+            } catch (error) {
+                contentDiv.innerHTML = `
+                    <h4>🤖 AI Business Overview</h4>
+                    <div class="error-message">Error: ${error.message}</div>
+                `;
+                contentDiv.classList.add('show');
+                button.textContent = '🤖 AI Overview';
+            }
+            
+            button.classList.remove('loading');
+        }
+
+        async function getSalesPitch(index) {
+            const shop = filteredBarbershops[index];
+            const button = document.querySelector(`[data-index="${index}"] .sales-pitch-btn`);
+            const contentDiv = document.getElementById(`ai-sales-${index}`);
+            
+            if (contentDiv.classList.contains('show')) {
+                contentDiv.classList.remove('show');
+                button.textContent = '💼 Sales Pitch';
+                return;
+            }
+            
+            button.classList.add('loading');
+            button.textContent = 'Generating...';
+            contentDiv.classList.remove('show');
+            
+            try {
+                const pitch = await callAIAPI(shop, 'sales');
+                contentDiv.innerHTML = `
+                    <h4>💼 Sales Pitch</h4>
+                    <p>${pitch}</p>
+                `;
+                contentDiv.classList.add('show');
+                button.textContent = '💼 Hide Pitch';
+            } catch (error) {
+                contentDiv.innerHTML = `
+                    <h4>💼 Sales Pitch</h4>
+                    <div class="error-message">Error: ${error.message}</div>
+                `;
+                contentDiv.classList.add('show');
+                button.textContent = '💼 Sales Pitch';
+            }
+            
+            button.classList.remove('loading');
+        }
+
+        async function callAIAPI(shop, type) {
+            const apiUrl = document.getElementById('apiUrl').value;
+            const apiKey = document.getElementById('apiKey').value;
+            
+            if (!apiUrl || !apiKey) {
+                throw new Error('Please configure API URL and API Key in the settings above.');
+            }
+            
+            // Prepare business data for AI analysis
+            const businessData = {
+                name: shop.name,
+                address: shop.address,
+                phone: shop.phone,
+                rating: shop.rating,
+                total_ratings: shop.total_ratings,
+                website: shop.website,
+                hours: shop.hours,
+                country: shop.country
+            };
+            
+            let prompt;
+            if (type === 'overview') {
+                prompt = `Analyze this barbershop business and provide a comprehensive overview including strengths, market position, and key insights. Business data: ${JSON.stringify(businessData)}`;
+            } else {
+                prompt = `Create a compelling sales pitch for potential customers of this barbershop, highlighting unique selling points and value propositions. Business data: ${JSON.stringify(businessData)}`;
+            }
+            
+            // Example API call structure - modify based on your API
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    model: 'gpt-3.5-turbo',
+                    messages: [
+                        {
+                            role: 'user',
+                            content: prompt
+                        }
+                    ],
+                    max_tokens: 500,
+                    temperature: 0.7
+                })
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error?.message || `API request failed with status ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            // Handle different API response formats
+            if (data.choices && data.choices[0] && data.choices[0].message) {
+                // OpenAI format
+                return data.choices[0].message.content;
+            } else if (data.response) {
+                // Generic response format
+                return data.response;
+            } else if (data.text) {
+                // Text completion format
+                return data.text;
+            } else if (typeof data === 'string') {
+                // Direct string response
+                return data;
+            } else {
+                throw new Error('Unexpected API response format');
+            }
         }
 
         function escapeHtml(text) {
@@ -786,177 +930,76 @@
             document.getElementById('stats').style.display = 'grid';
         }
 
-        // AI Features
-        function findShopByName(shopId) {
-            return allBarbershops.find(shop => 
-                shop.name.replace(/[^a-zA-Z0-9]/g, '') === shopId
-            );
-        }
-
-        function generateAIOverview(shopId) {
-            const shop = findShopByName(shopId);
-            if (!shop) return;
-
-            openAIModal('AI Business Overview', '');
-            
-            // Simulate AI processing delay
-            setTimeout(() => {
-                const overview = createAIOverview(shop);
-                document.getElementById('aiModalContent').innerHTML = overview;
-            }, 2000);
-        }
-
-        function generateSalesPitch(shopId) {
-            const shop = findShopByName(shopId);
-            if (!shop) return;
-
-            openAIModal('AI Sales Pitch', '');
-            
-            // Simulate AI processing delay
-            setTimeout(() => {
-                const pitch = createSalesPitch(shop);
-                document.getElementById('aiModalContent').innerHTML = pitch;
-            }, 2500);
-        }
-
-        function createAIOverview(shop) {
-            const rating = parseFloat(shop.rating) || 0;
-            const totalRatings = parseInt(shop.total_ratings) || 0;
-            const hasWebsite = shop.website && shop.website.trim() !== '';
-            
-            return `
-                <div class="ai-content">
-                    <h3>🏪 Business Profile</h3>
-                    <p><strong>${shop.name}</strong> is a barbershop located in ${shop.address || 'an unspecified location'}. 
-                    ${shop.country ? `Operating in ${shop.country}, ` : ''}this establishment ${rating > 0 ? `maintains a ${rating.toFixed(1)}-star rating based on ${totalRatings} customer reviews` : 'is building its customer base'}.</p>
-
-                    <h3>📊 Performance Analysis</h3>
-                    <ul>
-                        <li><strong>Customer Satisfaction:</strong> ${rating >= 4.0 ? 'Excellent' : rating >= 3.0 ? 'Good' : rating >= 2.0 ? 'Average' : 'Needs Improvement'} (${rating.toFixed(1)}/5.0)</li>
-                        <li><strong>Online Presence:</strong> ${hasWebsite ? 'Has established web presence' : 'Limited online visibility - opportunity for growth'}</li>
-                        <li><strong>Review Engagement:</strong> ${totalRatings > 50 ? 'High' : totalRatings > 20 ? 'Moderate' : 'Low'} customer engagement</li>
-                        <li><strong>Contact Accessibility:</strong> ${shop.phone ? 'Phone contact available' : 'Phone contact not listed'}</li>
-                    </ul>
-
-                    <h3>💡 Key Insights</h3>
-                    <p>${rating >= 4.0 ? 
-                        'This barbershop demonstrates strong customer satisfaction, indicating quality service delivery and positive customer experiences.' : 
-                        rating >= 3.0 ? 
-                        'This barbershop shows solid performance with room for enhancement in customer service or marketing strategies.' : 
-                        'This barbershop has significant opportunities for improvement in service quality and customer satisfaction.'}</p>
-
-                    ${!hasWebsite ? `
-                    <h3>🚀 Growth Opportunities</h3>
-                    <p>Major opportunity exists to establish an online presence through website development, which could significantly increase visibility and customer acquisition.</p>
-                    ` : ''}
-
-                    <h3>📈 Recommendations</h3>
-                    <ul>
-                        ${!hasWebsite ? '<li>Develop a professional website to improve online visibility</li>' : ''}
-                        ${totalRatings < 20 ? '<li>Implement customer review encouragement strategies</li>' : ''}
-                        ${rating < 4.0 ? '<li>Focus on service quality improvements based on customer feedback</li>' : ''}
-                        <li>Consider social media marketing to reach younger demographics</li>
-                        <li>Implement online booking system for customer convenience</li>
-                    </ul>
-                </div>
-            `;
-        }
-
-        function createSalesPitch(shop) {
-            const rating = parseFloat(shop.rating) || 0;
-            const totalRatings = parseInt(shop.total_ratings) || 0;
-            const hasWebsite = shop.website && shop.website.trim() !== '';
-            const location = shop.address ? shop.address.split(',').slice(-2).join(',').trim() : 'your area';
-
-            return `
-                <div class="ai-content">
-                    <h3>🎯 Personalized Sales Pitch for ${shop.name}</h3>
-                    
-                    <p><strong>Hello ${shop.name} team!</strong></p>
-                    
-                    <p>I hope this message finds you well. I've been researching successful barbershops in ${location}, and ${shop.name} caught my attention ${rating > 0 ? `with your impressive ${rating.toFixed(1)}-star rating` : 'as a growing business in the community'}.</p>
-
-                    <h3>🔍 What I've Observed</h3>
-                    <ul>
-                        ${rating >= 4.0 ? '<li>Your exceptional customer satisfaction scores show you truly care about quality service</li>' : ''}
-                        ${totalRatings > 30 ? '<li>Strong customer engagement with ' + totalRatings + ' reviews demonstrates community trust</li>' : ''}
-                        ${!hasWebsite ? '<li>Significant opportunity to expand your reach through digital presence</li>' : '<li>You have an established online presence, which shows forward-thinking</li>'}
-                        <li>Your location in ${location} positions you well in the local market</li>
-                    </ul>
-
-                    <h3>💼 How We Can Help You Grow</h3>
-                    
-                    ${!hasWebsite ? `
-                    <p><strong>Digital Transformation Package:</strong></p>
-                    <ul>
-                        <li>Professional website design with online booking system</li>
-                        <li>Local SEO optimization to appear first in "barbershop near me" searches</li>
-                        <li>Google My Business optimization to increase visibility</li>
-                        <li>Social media setup and content strategy</li>
-                    </ul>
-                    ` : `
-                    <p><strong>Digital Enhancement Package:</strong></p>
-                    <ul>
-                        <li>Website optimization and mobile responsiveness improvements</li>
-                        <li>Advanced online booking and customer management system</li>
-                        <li>Review management and reputation building strategies</li>
-                        <li>Social media marketing automation</li>
-                    </ul>
-                    `}
-
-                    <h3>📊 Projected Results</h3>
-                    <ul>
-                        <li><strong>30-40% increase</strong> in new customer acquisition within 3 months</li>
-                        <li><strong>25% boost</strong> in online visibility and local search rankings</li>
-                        <li><strong>Streamlined operations</strong> through automated booking and customer communications</li>
-                        ${!hasWebsite ? '<li><strong>24/7 availability</strong> for customers to book appointments online</li>' : ''}
-                    </ul>
-
-                    <h3>🎁 Special Offer</h3>
-                    <p>Because ${shop.name} ${rating >= 4.0 ? 'already demonstrates excellence in customer service' : 'shows great potential for growth'}, I'd love to offer you a <strong>20% discount</strong> on our first project together, plus a <strong>free consultation</strong> to discuss your specific goals.</p>
-
-                    <h3>📞 Next Steps</h3>
-                    <p>I'd love to schedule a brief 15-minute call to discuss how we can help ${shop.name} ${rating >= 4.0 ? 'reach even more satisfied customers' : 'achieve the success you deserve'}. Would ${shop.phone ? 'calling your shop directly' : 'connecting via email'} work best for you?</p>
-
-                    <p>Looking forward to potentially working with such a ${rating >= 4.0 ? 'well-regarded' : 'promising'} local business!</p>
-
-                    <p><strong>Best regards,<br>
-                    [Your Name]<br>
-                    [Your Company]<br>
-                    [Your Contact Information]</strong></p>
-                </div>
-            `;
-        }
-
-        function openAIModal(title, content) {
-            document.getElementById('aiModalTitle').textContent = title;
-            document.getElementById('aiModalContent').innerHTML = `
-                <div class="ai-loading">
-                    <div class="spinner"></div>
-                    <p>Generating AI content...</p>
-                </div>
-            `;
-            document.getElementById('aiModal').style.display = 'block';
-        }
-
-        function closeAIModal() {
-            document.getElementById('aiModal').style.display = 'none';
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('aiModal');
-            if (event.target === modal) {
-                closeAIModal();
+        // Add demo functionality for testing without API
+        function createDemoResponse(shop, type) {
+            if (type === 'overview') {
+                return `${shop.name} appears to be a well-established barbershop with a ${shop.rating || 'good'} star rating. Located in ${shop.address || 'a prime location'}, this business serves the local community with professional grooming services. With ${shop.total_ratings || 'several'} customer reviews, they've built a solid reputation. Their operating hours and location make them accessible to a diverse clientele. The business shows strong potential for growth and customer retention.`;
+            } else {
+                return `Looking for the perfect haircut? ${shop.name} is your destination for exceptional grooming! With our skilled barbers and welcoming atmosphere, we deliver precision cuts that leave you looking and feeling your best. Located conveniently at ${shop.address || 'our prime location'}, we're easily accessible for all your grooming needs. Our ${shop.rating || 'excellent'} rating speaks to our commitment to quality service. Visit us today and experience the difference - your hair deserves the best!`;
             }
         }
 
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeAIModal();
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 'f':
+                        e.preventDefault();
+                        document.getElementById('searchName').focus();
+                        break;
+                    case 'k':
+                        e.preventDefault();
+                        document.getElementById('apiKey').focus();
+                        break;
+                }
             }
         });
+
+        // Add tooltips for better UX
+        function addTooltips() {
+            const tooltips = {
+                'apiUrl': 'Enter your AI API endpoint URL (e.g., OpenAI, Anthropic, or custom API)',
+                'apiKey': 'Your API key for authentication - this is stored locally and not shared',
+                'searchName': 'Search for specific barbershop names',
+                'filterCountry': 'Filter results by country',
+                'filterRating': 'Show only businesses with ratings above this threshold',
+                'searchCity': 'Search for barbershops in specific cities'
+            };
+            
+            Object.entries(tooltips).forEach(([id, text]) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.title = text;
+                }
+            });
+        }
+
+        // Initialize tooltips when page loads
+        document.addEventListener('DOMContentLoaded', addTooltips);
+
+        // Save API configuration to localStorage for convenience
+        function saveApiConfig() {
+            const apiUrl = document.getElementById('apiUrl').value;
+            const apiKey = document.getElementById('apiKey').value;
+            
+            if (apiUrl) {
+                localStorage.setItem('barbershop_api_url', apiUrl);
+            }
+            // Note: We don't save API keys for security reasons
+        }
+
+        function loadApiConfig() {
+            const savedUrl = localStorage.getItem('barbershop_api_url');
+            if (savedUrl) {
+                document.getElementById('apiUrl').value = savedUrl;
+            }
+        }
+
+        // Load saved configuration on page load
+        document.addEventListener('DOMContentLoaded', loadApiConfig);
+
+        // Save configuration when changed
+        document.getElementById('apiUrl').addEventListener('change', saveApiConfig);
     </script>
 </body>
 </html>
