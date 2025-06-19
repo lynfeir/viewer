@@ -611,7 +611,21 @@
             };
             reader.readAsText(file);
         }
-
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        // Optional: Show a brief success message
+        console.log('Sales pitch copied to clipboard!');
+    }).catch(err => {
+        console.error('Failed to copy text: ', err);
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    });
+}
         function parseCSV(csv) {
             const lines = csv.split('\n');
             const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
@@ -830,13 +844,23 @@
             contentDiv.classList.remove('show');
             
             try {
-                const pitch = await callAIAPI(shop, 'sales');
-                contentDiv.innerHTML = `
-                    <h4>💼 Sales Pitch</h4>
-                    <p>${pitch}</p>
-                `;
-                contentDiv.classList.add('show');
-                button.textContent = '💼 Hide Pitch';
+    const pitch = await callAIAPI(shop, 'sales');
+    contentDiv.innerHTML = `
+        <h4>💼 Sales Pitch</h4>
+        <p>${pitch}</p>
+    `;
+    contentDiv.classList.add('show');
+    button.textContent = '💼 Hide Pitch';
+    
+    // Copy to clipboard
+    copyToClipboard(pitch);
+    
+    // Optional: Show a brief visual confirmation
+    const originalBg = contentDiv.style.backgroundColor;
+    contentDiv.style.backgroundColor = '#d4edda';
+    setTimeout(() => {
+        contentDiv.style.backgroundColor = originalBg;
+    }, 1000);
             } catch (error) {
                 contentDiv.innerHTML = `
                     <h4>💼 Sales Pitch</h4>
