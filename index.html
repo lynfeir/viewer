@@ -482,6 +482,14 @@
                     </select>
                 </div>
                 <div class="filter-group">
+    <label for="filterWebsite">Website Status:</label>
+    <select id="filterWebsite">
+        <option value="">All Barbershops</option>
+        <option value="has-website">Has Website</option>
+        <option value="no-website">No Website</option>
+    </select>
+</div>
+                <div class="filter-group">
                     <label for="filterRating">Minimum Rating:</label>
                     <input type="number" id="filterRating" min="0" max="5" step="0.1" placeholder="0.0">
                 </div>
@@ -547,6 +555,7 @@
         document.getElementById('filterCountry').addEventListener('change', applyFilters);
         document.getElementById('filterRating').addEventListener('input', applyFilters);
         document.getElementById('searchCity').addEventListener('input', applyFilters);
+        document.getElementById('filterWebsite').addEventListener('change', applyFilters);
 
         // Pagination handlers
         document.getElementById('prevPage').addEventListener('click', () => {
@@ -656,14 +665,18 @@
             const countryFilter = document.getElementById('filterCountry').value;
             const ratingFilter = parseFloat(document.getElementById('filterRating').value) || 0;
             const cityFilter = document.getElementById('searchCity').value.toLowerCase();
+            const websiteFilter = document.getElementById('filterWebsite').value;
 
             filteredBarbershops = allBarbershops.filter(shop => {
                 const matchesName = !nameFilter || shop.name.toLowerCase().includes(nameFilter);
                 const matchesCountry = !countryFilter || shop.country === countryFilter;
                 const matchesRating = !ratingFilter || (parseFloat(shop.rating) || 0) >= ratingFilter;
                 const matchesCity = !cityFilter || (shop.address && shop.address.toLowerCase().includes(cityFilter));
+                const matchesWebsite = !websiteFilter || 
+    (websiteFilter === 'has-website' && shop.website && shop.website.trim() !== '') ||
+    (websiteFilter === 'no-website' && (!shop.website || shop.website.trim() === ''));
 
-                return matchesName && matchesCountry && matchesRating && matchesCity;
+                return matchesName && matchesCountry && matchesRating && matchesCity && matchesWebsite;
             });
 
             currentPage = 1;
